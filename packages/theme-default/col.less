@@ -1,0 +1,13 @@
+[class*=n-col-]{
+	float: left;
+	box-sizing: border-box;
+}
+.n-col{
+	.generate-column();
+}
+.generate-column(@i:1) when(@i <= 24){
+	&.n-col-@{i}{
+		width: (100/24)*@i + 0%;
+	}
+	.generate-column(@i+1);
+}

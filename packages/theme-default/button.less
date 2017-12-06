@@ -1,0 +1,59 @@
+@import './common/variables';
+
+@types: primary, danger, warning, success, yellow, purple, gray, teal;
+@colors: @btn-color-primary, @btn-color-danger, @btn-color-warning, @btn-color-success, @btn-color-yellow, @btn-color-purple, @btn-color-gray, @btn-color-teal;
+
+.n-button{
+  display: inline-block;
+  padding: @btn-padding;
+  line-height: 1;
+  font-size: 14px;
+  border-radius: 0;
+  text-align: center;
+  outline: none;
+  cursor: pointer;
+  .loop-types(@types, @colors);
+  &--medium{
+  	padding: @btn-medium-padding;
+  }
+  &--small{
+  	padding: @btn-small-padding;
+  }
+  &--mini{
+  	padding: @btn-mini-padding;
+  }
+  &--default{
+  	border:1px solid @btn-color-gray;
+	&:active{
+		color: darken(@btn-color-primary, 5%);
+		border-color: darken(@btn-color-primary, 5%);
+	}
+  }
+
+}
+.button-color(@color){
+	background-color: @color;
+	&[disabled]{
+		&,
+		&:hover,
+		&:focus,
+		&:active{
+			background-color: mix(@white, @color, 40%);
+			border-color: mix(@white, @color, 40%);
+		}
+	}
+	&:active{
+		background-color: darken(@color, 5%);
+	}
+}
+
+.loop-types(@types,@colors,@i:1) when (@i <= length(@types)){
+	@attr: extract(@types, @i);
+	@color: extract(@colors, @i);
+	&--@{attr}{
+		color: #fff;
+		border: 1px solid @color;
+		.button-color(@color);
+	}
+	.loop-types(@types, @colors, (@i+1));
+}
